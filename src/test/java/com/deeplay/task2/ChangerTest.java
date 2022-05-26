@@ -1,6 +1,5 @@
 package com.deeplay.task2;
 
-
 import org.junit.Test;
 
 import java.io.IOException;

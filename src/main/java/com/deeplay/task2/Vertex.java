@@ -3,8 +3,8 @@ package com.deeplay.task2;
 import java.util.Objects;
 
 public class Vertex {
-    private int y;
-    private int x;
+    private final int y;
+    private final int x;
 
     public Vertex(int y, int x) {
         this.y = y;
@@ -15,16 +15,8 @@ public class Vertex {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public int getX() {
         return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
     }
 
     @Override
