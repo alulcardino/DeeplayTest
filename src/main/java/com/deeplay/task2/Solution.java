@@ -1,7 +1,6 @@
 package com.deeplay.task2;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class Solution {
             Arrays.fill(row, MAX_INT);
         distance[vertex.getY()][vertex.getX()] = 0;
 
-       for(; ;) {
+        for (; ; ) { // за такое банить надо, я считаю
             Vertex currentVertex = null;
             for (int i = 0; i < HEIGHT; i++)
                 for (int j = 0; j < WIDTH; j++)
@@ -55,8 +54,10 @@ public class Solution {
         }
         return distance;
     }
-    private static void fillCostTable() throws IOException, MySolutionException {
-        try (BufferedReader reader = new BufferedReader(new FileReader((Solution.class.getClassLoader().getResource("CostTable.txt")).getFile()))) {
+
+    private static void fillCostTable() throws IOException {
+        String costTablePath = (Objects.requireNonNull(Solution.class.getClassLoader().getResource("CostTable.txt"))).getFile();
+        try (BufferedReader reader = new BufferedReader(new FileReader(costTablePath))) {
             List<String> lines = new ArrayList<>();
             while (reader.ready()) {
                 lines.add(reader.readLine());
@@ -75,19 +76,19 @@ public class Solution {
         } catch (NullPointerException e) {
             System.out.println(MySolutionExceptionErrorCode.NO_FILE_COST);
         }
-
     }
 
     private static List<String> getDataFromFiles(String nameOfFile) throws IOException {
         List<String> arrayOfCreatures = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader((Solution.class.getClassLoader().getResource(nameOfFile)).getFile()))) {
+        String dataPath = (Objects.requireNonNull(Solution.class.getClassLoader().getResource(nameOfFile))).getFile();
+        try (BufferedReader reader = new BufferedReader(new FileReader(dataPath))) {
             String line = reader.readLine();
             while (line != null) {
                 arrayOfCreatures.add(line);
                 line = reader.readLine();
             }
         } catch (NullPointerException ex) {
-           System.out.println(MySolutionExceptionErrorCode.NO_FILE_DATA);
+            System.out.println(MySolutionExceptionErrorCode.NO_FILE_DATA);
         }
         return arrayOfCreatures;
     }
@@ -114,5 +115,4 @@ public class Solution {
     private static boolean isNear(Vertex vertex1, Vertex vertex2) {
         return Math.abs(vertex1.getY() - vertex2.getY()) + Math.abs(vertex1.getX() - vertex2.getX()) == 1;
     }
-
 }
